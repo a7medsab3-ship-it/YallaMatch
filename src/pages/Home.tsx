@@ -1,9 +1,24 @@
 import { MapPin, Calendar, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/common/SEO';
+import * as analytics from '../utils/analytics';
 
 const Home = () => {
+    const handleCTAClick = (label: string) => {
+        analytics.event({
+            action: 'click_cta',
+            category: 'Home',
+            label: label
+        });
+    };
+
     return (
         <div className="w-full">
+            <SEO
+                title="Book Football Fields in Egypt | GoalZone Pro"
+                description="Book the best 5-a-side football fields in Egypt instantly. Compare prices, check real-time availability, and play your game today."
+            />
+
             {/* Hero Section */}
             <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
                 {/* Abstract dark neon background */}
@@ -30,7 +45,11 @@ const Home = () => {
                             <Calendar className="text-primary mr-3" size={20} />
                             <input type="date" className="bg-transparent border-none focus:outline-none text-text w-full" />
                         </div>
-                        <Link to="/fields" className="btn-primary flex items-center justify-center whitespace-nowrap py-3 px-8 text-lg">
+                        <Link
+                            to="/fields"
+                            onClick={() => handleCTAClick('hero_find_fields')}
+                            className="btn-primary flex items-center justify-center whitespace-nowrap py-3 px-8 text-lg"
+                        >
                             Find Fields
                         </Link>
                     </div>
@@ -54,7 +73,7 @@ const Home = () => {
                         {/* Mock Card 1 */}
                         <div className="card overflow-hidden group">
                             <div className="h-48 bg-gray-800 relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600&auto=format&fit=crop" alt="Football Field" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600&auto=format&fit=crop" alt="Football Field" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
                                 <div className="absolute top-4 right-4 bg-surface text-primary px-3 py-1 rounded-full text-sm font-bold border border-primary/30">
                                     4.8 ★
                                 </div>
@@ -77,7 +96,7 @@ const Home = () => {
                         {/* Mock Card 2 */}
                         <div className="card overflow-hidden group">
                             <div className="h-48 bg-gray-800 relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1518605368461-1ee0c76abfa9?q=80&w=600&auto=format&fit=crop" alt="Football Field" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                <img src="https://images.unsplash.com/photo-1518605368461-1ee0c76abfa9?q=80&w=600&auto=format&fit=crop" alt="Football Field" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
                                 <div className="absolute top-4 right-4 bg-surface text-primary px-3 py-1 rounded-full text-sm font-bold border border-primary/30">
                                     4.5 ★
                                 </div>
@@ -100,7 +119,7 @@ const Home = () => {
                         {/* Mock Card 3 */}
                         <div className="card overflow-hidden group">
                             <div className="h-48 bg-gray-800 relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1628891435222-065926d73a23?q=80&w=600&auto=format&fit=crop" alt="Football Field" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                <img src="https://images.unsplash.com/photo-1628891435222-065926d73a23?q=80&w=600&auto=format&fit=crop" alt="Football Field" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
                                 <div className="absolute top-4 right-4 bg-surface text-primary px-3 py-1 rounded-full text-sm font-bold border border-primary/30">
                                     4.9 ★
                                 </div>
@@ -132,7 +151,11 @@ const Home = () => {
                     <p className="text-xl text-text-muted mb-10">
                         Join GoalZone Pro and manage your bookings efficiently. Maximize your revenue, eliminate double bookings, and reach more players.
                     </p>
-                    <Link to="/register-owner" className="btn-primary text-xl px-10 py-4 shadow-[0_0_30px_rgba(57,255,20,0.6)]">
+                    <Link
+                        to="/register-owner"
+                        onClick={() => handleCTAClick('owner_register')}
+                        className="btn-primary text-xl px-10 py-4 shadow-[0_0_30px_rgba(57,255,20,0.6)]"
+                    >
                         Start Your 14-Day Free Trial
                     </Link>
                 </div>

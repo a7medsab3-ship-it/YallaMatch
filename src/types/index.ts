@@ -8,7 +8,7 @@ export interface User {
     phoneNumber?: string;
     photoURL?: string | null;
     createdAt: string;
-    status: 'active' | 'suspended';
+    status: 'active' | 'suspended' | 'pending';
 }
 
 export interface Field {
