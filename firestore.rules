@@ -1,0 +1,42 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // User Profiles
+    match /users/{userId} {
+      // Anyone can read a basic user profile (e.g. for reviews)
+      allow read: if request.auth != null;
+      // Users can only update their own profile unless they are an admin
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Fields Listing
+    match /fields/{fieldId} {
+      // Anyone can read published active fields
+      allow read: if resource.data.status == 'active' || resource.data.ownerId == request.auth.uid;
+      // Only Field Owners can write to their own field
+      allow create: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'Field Owner';
+      allow update, delete: if request.auth != null && resource.data.ownerId == request.auth.uid;
+    }
+
+    // Bookings
+    match /bookings/{bookingId} {
+      // Users can read own bookings / Owners can read bookings for their fields
+      allow read: if request.auth != null && (resource.data.userId == request.auth.uid || get(/databases/$(database)/documents/fields/$(resource.data.fieldId)).data.ownerId == request.auth.uid);
+      
+      // Users can create bookings
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      
+      // Owners can update (approve/reject), Users can update (cancel)
+      allow update: if request.auth != null && (resource.data.userId == request.auth.uid || get(/databases/$(database)/documents/fields/$(resource.data.fieldId)).data.ownerId == request.auth.uid);
+    }
+
+    // Reviews
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if request.auth != null && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.userId == request.auth.uid;
+    }
+  }
+}
