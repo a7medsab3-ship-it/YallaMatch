@@ -1,5 +1,7 @@
 # GoalZone Pro - Booking Platform
 
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/a7medsab3-ship-it/YallaMatch)
+
 A complete enterprise-level SaaS web application for booking five-a-side football fields in Egypt, built taking modern UX/UI practices and performance into extreme consideration.
 
 ## 🚀 Tech Stack
